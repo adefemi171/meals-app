@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
-import AppNavigation from './src/navigation/AppNavigation'
+import AppNavigator from './src/navigation/AppNavigator'
 
 
 const getFonts = () => {
@@ -31,7 +31,7 @@ export default function App() {
       )
   }
   return (
-    <AppNavigation />
+    <AppNavigator />
   );
 }
 

@@ -6,7 +6,7 @@ import CategoriesPage from '../screens/CategoriesPage'
 import CategoryMealsPage from '../screens/CategoryMealsPage'
 import MealDetailPage from '../screens/MealDetailPage'
 
-const AppNavigation = createStackNavigator({
+const AppNavigator = createStackNavigator({
     Categories: CategoriesPage,
     CategoryMeals: {
         screen: CategoryMealsPage
@@ -16,4 +16,4 @@ const AppNavigation = createStackNavigator({
 
 
 
-export default createAppContainer(AppNavigation);
+export default createAppContainer(AppNavigator);
