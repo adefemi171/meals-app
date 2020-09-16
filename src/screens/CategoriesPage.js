@@ -1,18 +1,38 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { 
+    View, 
+    Text, 
+    StyleSheet, 
+    Button, 
+    FlatList
+ } from 'react-native'
 
+import { CATEGORIES } from '../data/dummy-data'
 
-
+// function to define how the item should be rendered
+const renderGridItem = (itemData) =>{
+    return (
+        <View style={styles.grid}>
+            <Text>{itemData.item.title}</Text>
+        </View>
+    )
+}
 
 const CategoriesPage = props => {
     // console.log(props)
     return (
-        <View style={styles.container}>
-            <Text> Categories Page! </Text>
-            <Button title="Go to Meals Page" onPress={() => {
-                props.navigation.navigate({routeName: 'CategoryMeals'})
-            }} />
-        </View>
+        <FlatList
+            keyExtractor={(item,index) => item.id} // redundant in newer version
+            data={CATEGORIES} 
+            renderItem={renderGridItem} 
+            numColumns={2} 
+        />
+        // <View style={styles.container}>
+        //     <Text> Categories Page! </Text>
+        //     <Button title="Go to Meals Page" onPress={() => {
+        //         props.navigation.navigate({routeName: 'CategoryMeals'})
+        //     }} />
+        // </View>
     );
 };
 
@@ -23,6 +43,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    grid:{
+        flex: 1,
+        margin: 15,
+        height: 150
     }
 })
 
