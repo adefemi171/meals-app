@@ -4,21 +4,33 @@ import {
     Text, 
     StyleSheet, 
     Button, 
-    FlatList
+    FlatList,
+    TouchableOpacity,
+    Platform 
  } from 'react-native'
 
 import { CATEGORIES } from '../data/dummy-data'
+import Colors from '../constants/Color'
 
-// function to define how the item should be rendered
-const renderGridItem = (itemData) =>{
-    return (
-        <View style={styles.grid}>
-            <Text>{itemData.item.title}</Text>
-        </View>
-    )
-}
+
 
 const CategoriesPage = props => {
+
+    // function to define how the item should be rendered
+    const renderGridItem = (itemData) =>{
+        return (
+            <TouchableOpacity
+                style={styles.grid} 
+                onPress={() => {
+                    props.navigation.navigate({routeName: 'CategoryMeals'})
+                }}
+            >
+                <View>
+                    <Text>{itemData.item.title}</Text>
+                </View>
+            </TouchableOpacity>
+        )
+    }
     // console.log(props)
     return (
         <FlatList
@@ -27,16 +39,18 @@ const CategoriesPage = props => {
             renderItem={renderGridItem} 
             numColumns={2} 
         />
-        // <View style={styles.container}>
-        //     <Text> Categories Page! </Text>
-        //     <Button title="Go to Meals Page" onPress={() => {
-        //         props.navigation.navigate({routeName: 'CategoryMeals'})
-        //     }} />
-        // </View>
     );
 };
 
-
+// accessing the function CategoriesPage as an object to set the title
+CategoriesPage.navigationOptions = {
+    headerTitle: 'Food Categories',
+    headerStyle:{
+        // Using Platform to switch colors on IOS and ANdroid
+        backgroundColor: Platform.OS === 'android' ? Colors.secondaryColor : ''
+    },
+    headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor
+}
 
 const styles = StyleSheet.create({
     container: {
