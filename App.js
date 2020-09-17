@@ -1,11 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import * as Font from 'expo-font';
-import { AppLoading } from 'expo';
+import { StatusBar } from 'expo-status-bar'
+import React, { useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import * as Font from 'expo-font'
+import { AppLoading } from 'expo'
+import { enableScreens } from 'react-native-screens'
 
 import AppNavigator from './src/navigation/AppNavigator'
 
+// using native optimize screen component provided by android and ios
+enableScreens();
 
 const getFonts = () => {
   return Font.loadAsync({
