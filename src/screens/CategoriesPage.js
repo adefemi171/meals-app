@@ -3,15 +3,12 @@ import {
     View, 
     Text, 
     StyleSheet, 
-    Button, 
     FlatList,
     TouchableOpacity,
-    Platform 
+ 
  } from 'react-native'
 
 import { CATEGORIES } from '../data/dummy-data'
-import Colors from '../constants/Color'
-
 
 
 const CategoriesPage = props => {
@@ -47,11 +44,6 @@ const CategoriesPage = props => {
 // accessing the function CategoriesPage as an object to set the title
 CategoriesPage.navigationOptions = {
     headerTitle: 'Food Categories',
-    headerStyle:{
-        // Using Platform to switch colors on IOS and ANdroid
-        backgroundColor: Platform.OS === 'android' ? Colors.secondaryColor : ''
-    },
-    headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor
 }
 
 const styles = StyleSheet.create({

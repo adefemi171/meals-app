@@ -1,8 +1,7 @@
 import React from 'react'
-import { View, Text, Button, StyleSheet, Platform } from 'react-native'
+import { View, Text, Button, StyleSheet } from 'react-native'
 
 import { CATEGORIES } from '../data/dummy-data'
-import Colors from '../constants/Color'
 
 
 const CategoryMealsPage = props => {
@@ -40,11 +39,6 @@ CategoryMealsPage.navigationOptions = (navigationData) => {
 
     return{
         headerTitle: navigationDataSelectedCategory.title,
-        headerStyle:{
-            // Using Platform to switch colors on IOS and ANdroid
-            backgroundColor: Platform.OS === 'android' ? Colors.secondaryColor : ''
-        },
-        headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor
     }
 
 }
