@@ -9,6 +9,7 @@ import {
  } from 'react-native'
 
 import { CATEGORIES } from '../data/dummy-data'
+import CategoryPageGridTile from '../components/CategoryPageGridTile'
 
 
 const CategoriesPage = props => {
@@ -16,18 +17,14 @@ const CategoriesPage = props => {
     // function to define how the item should be rendered
     const renderGridItem = (itemData) =>{
         return (
-            <TouchableOpacity
-                style={styles.grid} 
-                onPress={() => {
-                    props.navigation.navigate({routeName: 'CategoryMeals', params: {
-                        foodCategoryId: itemData.item.id //forwarding this id to the CategoryMeals page to use the data in the screen 
-                    }})
-                }}
-            >
-                <View>
-                    <Text>{itemData.item.title}</Text>
-                </View>
-            </TouchableOpacity>
+          <CategoryPageGridTile 
+            tileTitle={itemData.item.title} // Passed this to CategoryPageGridTile
+            tileColor={itemData.item.color} // Passed this to CategoryPageGridTile
+            onSelectNav={() => {
+                props.navigation.navigate({routeName: 'CategoryMeals', params: {
+                    foodCategoryId: itemData.item.id //forwarding this id to the CategoryMeals page to use the data in the screen 
+                }}) //// Passed this to CategoryPageGridTile
+          }}/>
         )
     }
     // console.log(props)
@@ -52,11 +49,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    grid:{
-        flex: 1,
-        margin: 15,
-        height: 150
-    }
+
 })
 
 export default CategoriesPage;
