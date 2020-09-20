@@ -35,7 +35,7 @@ MealDetailPage.navigationOptions = (navigationData) => {
 
     // function to find selected food category and returns item where the function is true
     //find takes a function and executes on every element in the array
-    const navigationDataselectedMeal = MEALS.find(meal => meal.id === mealId)
+    const navigationDataselectedMeal = MEALS.find(meal => meal.id === navigationmealId)
 
     return{
         headerTitle: navigationDataselectedMeal.title,
