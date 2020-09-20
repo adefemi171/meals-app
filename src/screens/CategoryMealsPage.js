@@ -2,15 +2,21 @@ import React from 'react'
 import { View, Text, Button, StyleSheet, FlatList } from 'react-native'
 
 import { CATEGORIES, MEALS } from '../data/dummy-data'
+import  MealItem from '../components/MealItem' 
 
 
 const CategoryMealsPage = props => {
 
     const rederMealItem = itemData => {
         return (
-            <View>
-                <Text>{itemData.item.title}</Text>
-            </View>
+            <MealItem 
+                title = {itemData.item.title}
+                duration = {itemData.item.duration}
+                complexity = {itemData.item.complexity} 
+                affordability = {itemData.item.affordability}
+                image = {itemData.item.imageUrl}  
+                onMealSelect = { () => {}}
+            />
         )
     }
     //getParam() a method provided to extract parameters received in this case from CategoriesPage
@@ -32,7 +38,8 @@ const CategoryMealsPage = props => {
             <FlatList 
                 data={showMeals} 
                 keyExtractor={(item,index) => item.id} 
-                renderItem={rederMealItem} 
+                renderItem={rederMealItem}
+                style={styles.listContainer} 
             />
         </View>
     );
@@ -64,6 +71,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    listContainer: {
+        width: '100%'
     }
 })
 
