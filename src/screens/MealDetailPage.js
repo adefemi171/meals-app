@@ -27,18 +27,17 @@ const MealDetailPage = props => {
 // or can be a function if one need a dynamic config that depends on changing data
 // since the data is changing due to different id, title from CATEGORIES
 MealDetailPage.navigationOptions = (navigationData) => {
-    // console.log(navigationData)
-    
+       
     // navigationData can then be used to acces the getParam() function
     //getParam() a method provided to extract parameters received in this case from CategoriesPage
     const navigationmealId = navigationData.navigation.getParam('mealID')
 
     // function to find selected food category and returns item where the function is true
     //find takes a function and executes on every element in the array
-    const navigationDataselectedMeal = MEALS.find(meal => meal.id === navigationmealId)
+    const navigationDataSelectedMeal = MEALS.find(meal => meal.id === navigationmealId)
 
     return{
-        headerTitle: navigationDataselectedMeal.title,
+        headerTitle: navigationDataSelectedMeal.title,
     }
 
 }
