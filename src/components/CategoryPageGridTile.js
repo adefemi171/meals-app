@@ -4,16 +4,17 @@ import { TouchableOpacity, View, Text, StyleSheet, Platform, TouchableNativeFeed
 
 const CategoryPageGridTile = props => {
 
-    // variable to hold the default ripple effec by default TouchableOpacity
+    // variable to hold the default ripple effect by default TouchableOpacity
     let TouchEffect = TouchableOpacity
 
+    // TouchableNativeFeedback is only supported for version >= 21
     if (Platform.OS == "android" && Platform.Version >= 21) {
         TouchEffect = TouchableNativeFeedback
     }
     return (
         <View style={styles.gridTile}>
             <TouchEffect
-            style={{flex:1}}
+            style={{flex:1}} // place gridTile style here
                 onPress={props.onSelectNav}
             >
             <View style={{...styles.tileContainer, ...{backgroundColor: props.tileColor}}}>

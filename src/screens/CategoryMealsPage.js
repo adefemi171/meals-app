@@ -1,23 +1,39 @@
 import React from 'react'
-import { View, Text, Button, StyleSheet } from 'react-native'
+import { View, Text, Button, StyleSheet, FlatList } from 'react-native'
 
-import { CATEGORIES } from '../data/dummy-data'
+import { CATEGORIES, MEALS } from '../data/dummy-data'
 
 
 const CategoryMealsPage = props => {
+
+    const rederMealItem = itemData => {
+        return (
+            <View>
+                <Text>{itemData.item.title}</Text>
+            </View>
+        )
+    }
     //getParam() a method provided to extract parameters received in this case from CategoriesPage
     const foodCatId = props.navigation.getParam('foodCategoryId')
 
     // function to find selected food category and returns item where the function is true
     //find takes a function and executes on every element in the array
-    const selectedCategory = CATEGORIES.find(cat => cat.id === foodCatId)
+    const selectedCategory = CATEGORIES.find(cat => cat.id === foodCatId) // not needed anymore
+
+    // Finding the meals that fit into selected categories
+    // storing them in a const called showMeals
+    // filter is a javascript object to run a function in an array
+    const showMeals = MEALS.filter(
+        meal => meal.categoryIDs.indexOf(foodCatId) >= 0
+    )
+
     return (
         <View style={styles.container}>
-            <Text> Category Meals Page! </Text>
-            <Text>{selectedCategory.title}</Text>
-            <Button title="Go to Meals Page" onPress={() => {
-                props.navigation.navigate({routeName: 'MealDetail'})
-            }} />
+            <FlatList 
+                data={showMeals} 
+                keyExtractor={(item,index) => item.id} 
+                renderItem={rederMealItem} 
+            />
         </View>
     );
 };
