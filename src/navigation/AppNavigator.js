@@ -13,6 +13,19 @@ import CategoryMealsPage from '../screens/CategoryMealsPage'
 import MealDetailPage from '../screens/MealDetailPage'
 import FavoritePage from '../screens/FavoritesPage'
 
+
+// defaultsettings for NavOptions
+const defaultStackNavOptions = {
+    headerStyle:{
+    // Using Platform to switch colors on IOS and ANdroid
+        backgroundColor: Platform.OS === 'android' ? Colors.secondaryColor : ''
+    },
+    headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor
+        
+}
+
+
+
 const AppNavigator = createStackNavigator({
     Categories: {
         screen: CategoriesPage,
@@ -27,14 +40,20 @@ const AppNavigator = createStackNavigator({
 }, {
     mode: 'modal',
     // this allow settings that applies to all screen
-    defaultNavigationOptions: {
-        headerStyle:{
-            // Using Platform to switch colors on IOS and ANdroid
-            backgroundColor: Platform.OS === 'android' ? Colors.secondaryColor : ''
-        },
-        headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor
-    }
+    defaultNavigationOptions: defaultStackNavOptions
 })
+
+
+// favorites stacknavigator
+const FavoriteNavigator = createStackNavigator({
+    Favorites:FavoritePage,
+    MealDetail: MealDetailPage,
+},{
+    mode: 'modal',
+    // this allow settings that applies to all screen
+    defaultNavigationOptions: defaultStackNavOptions
+})
+
 
 // store the screen config for the tabs in a constanr
 const bottomTabConfig = 
@@ -51,7 +70,7 @@ const bottomTabConfig =
             }
         }, //Pointing to the whole stack
         Favorites: {
-            screen: FavoritePage,
+            screen: FavoriteNavigator,
             navigationOptions:{
                 tabBarIcon: (tabInfo) => {
                     return (
