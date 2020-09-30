@@ -1,11 +1,22 @@
 import React from 'react'
-import { View, Text, Button, StyleSheet } from 'react-native'
+import { ScrollView, View, Text, Button, StyleSheet, Image } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons' // note it's HeaderButtons
 
 
 import { MEALS } from '../data/dummy-data'
 import HeaderButton from '../components/HeaderButton'
+import TextWrapper from '../components/TextWrapper'
 
+
+
+// sepererate component to style the ingredients and steps
+const ItemList = props => {
+    return (
+        <View style={styles.itemList}>
+            <TextWrapper>{props.children}</TextWrapper>
+        </View>
+    )
+}
 const MealDetailPage = props => {
 
     const mealId = props.navigation.getParam('mealID') // mealID was gotten fromthe param in categorMealsPage under RendrItem
@@ -15,11 +26,22 @@ const MealDetailPage = props => {
     const selectedMeal = MEALS.find(meal => meal.id === mealId) 
 
     return (
-        <View style={styles.container}>
-            <Text> {selectedMeal.title} </Text>
-            <Text> Meal Detail Page! </Text>
-            <Button title="Back to Categories Page" onPress={() => {props.navigation.popToTop()}} />
-        </View>
+        <ScrollView>
+            <Image source={{uri: selectedMeal.imageUrl}} style={styles.imageContainer}/>
+            <View style={styles.mealDetailContainer}>
+                <TextWrapper>{selectedMeal.duration}m</TextWrapper>
+                <TextWrapper>{selectedMeal.complexity.toUpperCase()}</TextWrapper>
+                <TextWrapper>{selectedMeal.affordability.toUpperCase()}</TextWrapper>
+            </View>
+            <Text style={styles.ingredientText}> Ingredients </Text>
+            {selectedMeal.ingredients.map(ingredient => (
+                <ItemList key={ingredient}>* {ingredient}</ItemList>
+            ))}
+            <Text style={styles.stepsText}> Steps taken </Text>
+            {selectedMeal.steps.map(step => (
+                <ItemList key={step}>=> {step}</ItemList>
+            ))}
+        </ScrollView>
     );
 };
 
@@ -56,12 +78,33 @@ MealDetailPage.navigationOptions = (navigationData) => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 10
+    imageContainer: {
+        width: '100%',
+        height: 200
+    },
+    mealDetailContainer: {
+        flexDirection: 'row',
+        padding: 15,
+        justifyContent: 'space-around',
+    },
+    ingredientText: {
+        fontFamily: 'open-sans-bold',
+        fontSize: 20,
+        textAlign: 'center'
+    },
+    stepsText: {
+        fontFamily: 'open-sans-bold',
+        fontSize: 20,
+        textAlign: 'center'
+    },
+    itemList: {
+        marginVertical: 10,
+        marginHorizontal: 20,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        padding: 10
     }
+
 })
 
 export default MealDetailPage;
