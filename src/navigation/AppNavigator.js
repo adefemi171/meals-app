@@ -1,5 +1,5 @@
 import React from 'react'
-import { Platform } from 'react-native'
+import { Platform, Text } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator} from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
@@ -21,6 +21,12 @@ const defaultStackNavOptions = {
     headerStyle:{
     // Using Platform to switch colors on IOS and ANdroid
         backgroundColor: Platform.OS === 'android' ? Colors.secondaryColor : ''
+    },
+    headerTitleStyle:{
+        fontFamily: 'open-sans-bold'
+    },
+    headerBackTitleStyle: {
+        fontFamily: 'open-sans-reg'
     },
     headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor
         
@@ -68,7 +74,10 @@ const bottomTabConfig =
                         <Ionicons name='ios-restaurant' size={20} color={tabInfo.tintColor}/>
                     )
                 },
-                tabBarColor: Colors.secondaryColor
+                tabBarColor: Colors.secondaryColor,
+                tabBarLabel: Platform.OS === 'android' 
+                    ? <Text style={{fontFamily: 'open-sans-bold'}}> Meals </Text> 
+                    :  'Meal'
             }
         }, //Pointing to the whole stack
         Favorites: {
@@ -79,7 +88,10 @@ const bottomTabConfig =
                         <Ionicons name='ios-star' size={20} color={tabInfo.tintColor}/>
                     )
                 },
-                tabBarColor: Colors.primaryColor
+                tabBarColor: Colors.primaryColor,
+                tabBarLabel: Platform.OS === 'android' 
+                ? <Text style={{fontFamily: 'open-sans-reg'}}> Favorites </Text> 
+                :  'Favorites'
             }
         } // pointing to a screen
     }
@@ -94,6 +106,9 @@ const AppFavTabNavigator =
         :  createBottomTabNavigator(
             bottomTabConfig , {
                 tabBarOptions:{
+                    labelStyle:{
+                        fontFamily: 'open-sans-reg',
+                    },
                     activeTintColor: Colors.primaryColor,
                     activeBackgroundColor: Colors.secondaryColor
                 }

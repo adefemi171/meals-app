@@ -9,6 +9,7 @@ import {
     ImageBackground 
 } from 'react-native'
 
+import TextWrapper from './TextWrapper'
 
 
 const MealItem = props => {
@@ -33,9 +34,9 @@ const MealItem = props => {
                         </ImageBackground>
                     </View>
                     <View style={{...styles.mealRowContainer, ...styles.mealDetailContainer}}>
-                        <Text>{props.duration}m</Text>
-                        <Text>{props.complexity.toUpperCase()}</Text>
-                        <Text>{props.affordability.toUpperCase()}</Text>
+                        <TextWrapper>{props.duration}m</TextWrapper>
+                        <TextWrapper>{props.complexity.toUpperCase()}</TextWrapper>
+                        <TextWrapper>{props.affordability.toUpperCase()}</TextWrapper>
                     </View>
                 </View>
             </TouchEffect>
