@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons' // note it's HeaderButtons
 
+import HeaderButton from '../components/HeaderButton'
 
 
 
@@ -11,6 +13,26 @@ const FiltersPage = props => {
         </View>
     );
 };
+
+FiltersPage.navigationOptions = (navData) =>  {
+    // console.log(navigationData)
+  
+  return{
+    headerTitle: 'Meal Filter',
+    headerLeft:  ( 
+        <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item 
+                title="Menu" 
+                iconName='ios-menu' 
+                onPress={() => {
+                    navData.navigation.toggleDrawer()
+                }}
+            />
+        </HeaderButtons>
+    )
+}
+
+}
 
 
 

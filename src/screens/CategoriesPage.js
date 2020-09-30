@@ -1,15 +1,14 @@
 import React from 'react'
 import { 
-    View, 
-    Text, 
     StyleSheet, 
     FlatList,
-    TouchableOpacity,
  
  } from 'react-native'
+ import { HeaderButtons, Item } from 'react-navigation-header-buttons' // note it's HeaderButtons
 
 import { CATEGORIES } from '../data/dummy-data'
 import CategoryPageGridTile from '../components/CategoryPageGridTile'
+import HeaderButton from '../components/HeaderButton'
 
 
 const CategoriesPage = props => {
@@ -39,8 +38,21 @@ const CategoriesPage = props => {
 };
 
 // accessing the function CategoriesPage as an object to set the title
-CategoriesPage.navigationOptions = {
-    headerTitle: 'Food Categories',
+CategoriesPage.navigationOptions = (navData) => {
+    return{
+        headerTitle: 'Food Categories',
+        headerLeft:  ( 
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item 
+                    title="Menu" 
+                    iconName='ios-menu' 
+                    onPress={() => {
+                        navData.navigation.toggleDrawer()
+                    }}
+                />
+            </HeaderButtons>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
