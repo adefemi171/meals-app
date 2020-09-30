@@ -104,10 +104,29 @@ const AppFavTabNavigator =
 // filter screen stack
 const FiltersNavigator = createStackNavigator({
     Filters: FiltersPage
+},{
+    mode: 'modal',
+    // this allow settings that applies to all screen
+    navigationOptions:{
+        drawerLabel: 'Filters'
+    },
+    defaultNavigationOptions: defaultStackNavOptions
 })
 
 const MainDrawerNavigator = createDrawerNavigator({
-    Meals: AppFavTabNavigator,
+    Meals: {
+        screen: AppFavTabNavigator, 
+        navigationOptions:{
+            drawerLabel: 'Meals'
+        }
+    },
     Filters: FiltersNavigator
+}, {
+    contentOptions:{
+        activeTintColor: Colors.secondaryColor,
+        labelStyle: {
+            fontFamily: 'open-sans-bold'
+        }
+    }
 })
 export default createAppContainer(MainDrawerNavigator);
