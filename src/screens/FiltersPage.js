@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 // Switch renders a switch 
 import { View, Text, StyleSheet, Switch } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons' // note it's HeaderButtons
@@ -24,10 +24,34 @@ const FilterSwitch = props => {
 }
 const FiltersPage = props => { 
 
+    // using object destructuring to get props
+    const { navigation } = props
+
     // state component for the switch
     const [isBromateFree, setIsBromateFree] = useState(false)
     const [isStarchFree, setIsStarchFree] = useState(false)
     const [isVeganFree, setIsVeganFree] = useState(false)
+
+
+    // save filter function
+    // useCallBack wraps a function and cache it and only recreated if the dependency change
+    const saveFilters = useCallback(() => {
+        const appliedFilters = {
+            bromateFree: isBromateFree,
+            starchFree: isStarchFree,
+            veganFree: isVeganFree
+        }
+        console.log(appliedFilters)
+    }, [isBromateFree, isStarchFree, isVeganFree]) // useCallBack also takes a second argument which is an array of dependencies
+
+    
+    // useEffect takes a function which runs whenever 
+    // state changes or components re-
+    // setParams can be used to update the params value for the currently loaded screen 
+    useEffect(() => {
+        navigation.setParams({save: saveFilters}) // a  called save and pointing at the saveFilter function which is ot been executed
+        // store he pointer saveFilter to the key save
+    }, [saveFilters]) // second argument to useEffect is an array of dependencies
 
     return (
         <View style={styles.container}>
@@ -56,7 +80,7 @@ FiltersPage.navigationOptions = (navData) =>  {
   
   return{
     headerTitle: 'Meal Filter',
-    headerLeft:  ( 
+    headerLeft: () => ( 
         <HeaderButtons HeaderButtonComponent={HeaderButton}>
             <Item 
                 title="Menu" 
@@ -64,6 +88,18 @@ FiltersPage.navigationOptions = (navData) =>  {
                 onPress={() => {
                     navData.navigation.toggleDrawer()
                 }}
+            />
+        </HeaderButtons>
+    ),
+    headerRight: () => (
+        <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item 
+                title="Save" 
+                iconName='ios-save' 
+                onPress={
+                    // the way to get the parameter from line 48 setParam()
+                    navData.navigation.getParam('save')
+                }
             />
         </HeaderButtons>
     )
