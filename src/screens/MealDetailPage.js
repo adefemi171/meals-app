@@ -46,6 +46,19 @@ const MealDetailPage = props => {
         props.navigation.setParams({favToggleNav: favToggleHandler})
     }, [favToggleHandler])
 
+
+    // getting user favorite meal and changing the icon
+    const currentFavMeal = useSelector(state => 
+        state.meals.favoriteMeals.some(meal => meal.id === mealId)
+    )
+    
+    // assing the currenFavMeal to navigation
+    useEffect(() => {
+        // props.navigation.setParams({ mealTitle: selectedMeal.title})
+        props.navigation.setParams({isFavNav: currentFavMeal})
+    }, [currentFavMeal])
+
+
     return (
         <ScrollView>
             <Image source={{uri: selectedMeal.imageUrl}} style={styles.imageContainer}/>
@@ -79,7 +92,8 @@ MealDetailPage.navigationOptions = (navigationData) => {
 
     const navigationMealTitle = navigationData.navigation.getParam('mealTitle')
     const navigationFavToggle = navigationData.navigation.getParam('favToggleNav')
-
+    const navigationCurrentFav = navigationData.navigation.getParam('isFavNav')
+    
     // function to find selected food category and returns item where the function is true
     //find takes a function and executes on every element in the array
     // const navigationDataSelectedMeal = MEALS.find(meal => meal.id === navigationMealId)
@@ -90,7 +104,7 @@ MealDetailPage.navigationOptions = (navigationData) => {
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
                 <Item 
                     title='Favorite' 
-                    iconName='ios-star' 
+                    iconName={navigationCurrentFav ? 'ios-star' : 'ios-star-outline'}
                     onPress={
                         navigationFavToggle 
                         // console.log('Maked as favorite')

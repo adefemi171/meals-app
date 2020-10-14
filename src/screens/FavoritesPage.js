@@ -1,10 +1,11 @@
 import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons' // note it's HeaderButtons
 import { useSelector } from 'react-redux' // useSelector is a hook allows to select a slice of the globally managed state and use in component
 
 import HeaderButton from '../components/HeaderButton'
 import  MealList from '../components/MealList' 
-
+import TextWrapper from '../components/TextWrapper'
 
 
 const FavoritesPage = props => {
@@ -19,6 +20,14 @@ const FavoritesPage = props => {
     //setting dummy favorite meal
     // const favoriteMeal = MEALS.filter(meal => meal.id === 'm1' || meal.id === 'm2');
     
+    // to render a text if the favorite list is empty
+    if (favoriteMeal.length === 0 || !favoriteMeal) {
+        return (
+            <View style={styles.favContainerContent}>
+                <TextWrapper> No Favorites meal</TextWrapper>
+            </View>
+        )
+    }
     return (
         <MealList mealListData={favoriteMeal} navigation={props.navigation}/>
     );
@@ -48,5 +57,12 @@ FavoritesPage.navigationOptions = (navData) =>  {
 
 }
 
+const styles = StyleSheet.create({
+    favContainerContent: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
+})
 
 export default FavoritesPage;
