@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { ScrollView, View, Text, Button, StyleSheet, Image } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons' // note it's HeaderButtons
-import { useSelector } from 'react-redux' // useSelector is a hook allows to select a slice of the globally managed state and use in component
+import { useSelector, useDispatch } from 'react-redux' // useSelector is a hook allows to select a slice of the globally managed state and use in component and useDispatch helps dispatch an action
 
 
 // import { MEALS } from '../data/dummy-data'
 import HeaderButton from '../components/HeaderButton'
 import TextWrapper from '../components/TextWrapper'
+import { favToggle } from '../store/actions/mealsAction'
 
 
 
@@ -32,9 +33,18 @@ const MealDetailPage = props => {
     //find takes a function and executes on every element in the array
     const selectedMeal = mealsAvailable.find(meal => meal.id === mealId) 
 
-    // useEffect(() => {
-    //     props.navigation.setParams({ mealTitle: selectedMeal.title})
-    // }, [selectedMeal])
+    // function to store the
+    const dispatchFunc = useDispatch()
+
+    // a function to dispatch the action
+    const favToggleHandler = useCallback(() => {
+        dispatchFunc(favToggle(mealId))
+    }, [dispatchFunc, mealId])
+    // to activte the header title
+    useEffect(() => {
+        // props.navigation.setParams({ mealTitle: selectedMeal.title})
+        props.navigation.setParams({favToggleNav: favToggleHandler})
+    }, [favToggleHandler])
 
     return (
         <ScrollView>
@@ -65,9 +75,10 @@ MealDetailPage.navigationOptions = (navigationData) => {
        
     // navigationData can then be used to acces the getParam() function
     //getParam() a method provided to extract parameters received in this case from CategoriesPage
-    const navigationMealId = navigationData.navigation.getParam('mealID')
+        // const navigationMealId = navigationData.navigation.getParam('mealID')
 
     const navigationMealTitle = navigationData.navigation.getParam('mealTitle')
+    const navigationFavToggle = navigationData.navigation.getParam('favToggleNav')
 
     // function to find selected food category and returns item where the function is true
     //find takes a function and executes on every element in the array
@@ -80,9 +91,10 @@ MealDetailPage.navigationOptions = (navigationData) => {
                 <Item 
                     title='Favorite' 
                     iconName='ios-star' 
-                    onPress={() => { 
-                        console.log('Maked as favorite')
-                    }}
+                    onPress={
+                        navigationFavToggle 
+                        // console.log('Maked as favorite')
+                    }
                 />
             </HeaderButtons>
         
