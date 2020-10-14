@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ScrollView, View, Text, Button, StyleSheet, Image } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons' // note it's HeaderButtons
 import { useSelector } from 'react-redux' // useSelector is a hook allows to select a slice of the globally managed state and use in component
@@ -32,6 +32,10 @@ const MealDetailPage = props => {
     //find takes a function and executes on every element in the array
     const selectedMeal = mealsAvailable.find(meal => meal.id === mealId) 
 
+    // useEffect(() => {
+    //     props.navigation.setParams({ mealTitle: selectedMeal.title})
+    // }, [selectedMeal])
+
     return (
         <ScrollView>
             <Image source={{uri: selectedMeal.imageUrl}} style={styles.imageContainer}/>
@@ -61,14 +65,16 @@ MealDetailPage.navigationOptions = (navigationData) => {
        
     // navigationData can then be used to acces the getParam() function
     //getParam() a method provided to extract parameters received in this case from CategoriesPage
-    const navigationmealId = navigationData.navigation.getParam('mealID')
+    const navigationMealId = navigationData.navigation.getParam('mealID')
+
+    const navigationMealTitle = navigationData.navigation.getParam('mealTitle')
 
     // function to find selected food category and returns item where the function is true
     //find takes a function and executes on every element in the array
-    const navigationDataSelectedMeal = MEALS.find(meal => meal.id === navigationmealId)
+    // const navigationDataSelectedMeal = MEALS.find(meal => meal.id === navigationMealId)
 
     return{
-        headerTitle: navigationDataSelectedMeal.title,
+        headerTitle: navigationMealTitle,
         headerRight: () => 
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
                 <Item 
