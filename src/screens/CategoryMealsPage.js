@@ -1,6 +1,7 @@
 import React from 'react'
+import { useSelector } from 'react-redux' // useSelector is a hook allows to select a slice of the globally managed state and use in component
 
-import { CATEGORIES, MEALS } from '../data/dummy-data'
+import { CATEGORIES } from '../data/dummy-data'
 import  MealList from '../components/MealList' 
 
 
@@ -14,10 +15,14 @@ const CategoryMealsPage = props => {
     //find takes a function and executes on every element in the array
     const selectedCategory = CATEGORIES.find(cat => cat.id === foodCatId) // not needed anymore
 
+    // to use useSelector to derive the MEAL, it takes a function
+    // that will be executedd by react-redux
+    const mealsAvailable = useSelector(state => state.meals.filteredMeals)
+    
     // Finding the meals that fit into selected categories
     // storing them in a const called showMeals
     // filter is a javascript object to run a function in an array
-    const showMeals = MEALS.filter(
+    const showMeals = mealsAvailable.filter(
         meal => meal.categoryIDs.indexOf(foodCatId) >= 0
     )
 

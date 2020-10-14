@@ -4,11 +4,24 @@ import { StyleSheet, Text, View } from 'react-native'
 import * as Font from 'expo-font'
 import { AppLoading } from 'expo'
 import { enableScreens } from 'react-native-screens'
+import { createStore, combineReducers } from 'redux' // set up redux store
+import { Provider } from 'react-redux'
 
 import AppNavigator from './src/navigation/AppNavigator'
+import mealsReducer from './src/store/reducer/meals'
 
 // using native optimize screen component provided by android and ios
 enableScreens();
+
+
+// if there is more than one reducer then combineReducers to the rescur
+const rootReducer = combineReducers({
+  meals: mealsReducer
+})
+
+
+// create store here which takes a reducer in
+const store =createStore(rootReducer)
 
 const getFonts = () => {
   return Font.loadAsync({
@@ -34,7 +47,9 @@ export default function App() {
       )
   }
   return (
-    <AppNavigator />
+    <Provider store={store}>
+      <AppNavigator />
+    </Provider>
   );
 }
 

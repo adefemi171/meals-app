@@ -1,9 +1,10 @@
 import React from 'react'
 import { ScrollView, View, Text, Button, StyleSheet, Image } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons' // note it's HeaderButtons
+import { useSelector } from 'react-redux' // useSelector is a hook allows to select a slice of the globally managed state and use in component
 
 
-import { MEALS } from '../data/dummy-data'
+// import { MEALS } from '../data/dummy-data'
 import HeaderButton from '../components/HeaderButton'
 import TextWrapper from '../components/TextWrapper'
 
@@ -19,11 +20,17 @@ const ItemList = props => {
 }
 const MealDetailPage = props => {
 
+    // to use useSelector to derive the MEAL, it takes a function
+    // that will be executedd by react-redux
+    // state.meals select the slice of the state
+    // stste.meals.meals and in the slice the .meals access the meals props in the state slice
+    const mealsAvailable = useSelector(state => state.meals.meals)
+
     const mealId = props.navigation.getParam('mealID') // mealID was gotten fromthe param in categorMealsPage under RendrItem
 
     // function to find selected food category and returns item where the function is true
     //find takes a function and executes on every element in the array
-    const selectedMeal = MEALS.find(meal => meal.id === mealId) 
+    const selectedMeal = mealsAvailable.find(meal => meal.id === mealId) 
 
     return (
         <ScrollView>
