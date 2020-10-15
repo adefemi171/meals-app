@@ -11,8 +11,8 @@ class Meal {
         steps, 
         isGlutenFree, 
         isVegan, 
-        isVegetarian, 
-        isLactoseFree
+        isBromateFree, 
+        isStarchFree
         ) {
             this.id = id
             this.categoryIDs = categoryIDs
@@ -25,8 +25,8 @@ class Meal {
             this.complexity = complexity
             this.isGlutenFree = isGlutenFree
             this.isVegan = isVegan
-            this.isVegetarian = isVegetarian
-            this.isLactoseFree = isLactoseFree
+            this.isStarchFree = isStarchFree
+            this.isBromateFree = isBromateFree
         }
 }
 

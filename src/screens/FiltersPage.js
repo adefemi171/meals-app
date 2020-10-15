@@ -31,6 +31,7 @@ const FiltersPage = props => {
     const [isBromateFree, setIsBromateFree] = useState(false)
     const [isStarchFree, setIsStarchFree] = useState(false)
     const [isVeganFree, setIsVeganFree] = useState(false)
+    const [isGlutenFree, setIsGlutenFree] = useState(false)
 
 
     // save filter function
@@ -39,10 +40,11 @@ const FiltersPage = props => {
         const appliedFilters = {
             bromateFree: isBromateFree,
             starchFree: isStarchFree,
-            veganFree: isVeganFree
+            veganFree: isVeganFree,
+            glutenFree: isGlutenFree
         }
         console.log(appliedFilters)
-    }, [isBromateFree, isStarchFree, isVeganFree]) // useCallBack also takes a second argument which is an array of dependencies
+    }, [isBromateFree, isStarchFree, isVeganFree, isGlutenFree]) // useCallBack also takes a second argument which is an array of dependencies
 
     
     // useEffect takes a function which runs whenever 
@@ -70,6 +72,11 @@ const FiltersPage = props => {
                 label='Vegan Free' 
                 value={isVeganFree} 
                 onSwitch={newValue => setIsVeganFree(newValue)} 
+            />
+            <FilterSwitch 
+                label='Gluten Free' 
+                value={isGlutenFree} 
+                onSwitch={newValue => setIsGlutenFree(newValue)} 
             />
         </View>
     );
