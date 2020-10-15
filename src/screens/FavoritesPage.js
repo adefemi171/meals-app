@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons' // note it's HeaderButtons
 import { useSelector } from 'react-redux' // useSelector is a hook allows to select a slice of the globally managed state and use in component
 

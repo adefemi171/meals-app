@@ -2,10 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react'
 // Switch renders a switch 
 import { View, Text, StyleSheet, Switch } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons' // note it's HeaderButtons
+import { useDispatch } from 'react-redux' // useDispatch helps dispatch an action
 
 import HeaderButton from '../components/HeaderButton'
-
 import Colors from '../constants/Color'
+import { setFilters } from '../store/actions/mealsAction'
 
 
 // filterswitch component
@@ -33,6 +34,8 @@ const FiltersPage = props => {
     const [isVeganFree, setIsVeganFree] = useState(false)
     const [isGlutenFree, setIsGlutenFree] = useState(false)
 
+    // function to store the
+    const dispatchFunc = useDispatch()
 
     // save filter function
     // useCallBack wraps a function and cache it and only recreated if the dependency change
@@ -43,8 +46,9 @@ const FiltersPage = props => {
             veganFree: isVeganFree,
             glutenFree: isGlutenFree
         }
-        console.log(appliedFilters)
-    }, [isBromateFree, isStarchFree, isVeganFree, isGlutenFree]) // useCallBack also takes a second argument which is an array of dependencies
+        // console.log(appliedFilters)
+       dispatchFunc(setFilters(appliedFilters))
+    }, [isBromateFree, isStarchFree, isVeganFree, isGlutenFree, dispatchFunc]) // useCallBack also takes a second argument which is an array of dependencies
 
     
     // useEffect takes a function which runs whenever 

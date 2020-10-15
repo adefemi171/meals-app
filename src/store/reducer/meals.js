@@ -31,7 +31,7 @@ const mealsReducer = (state =  initState, action) => {
                 }
             }
         case ADD_FILTERS:
-            const filterApply = actions.filters
+            const filterApply = action.filters
             // create a new filtered meal based on the toal meal available and use build in filter method
             const newFilteredMeals = state.meals.filter(meal => {
                 // function will check if any meal matches the filter and dropped if it doesnt

@@ -1,9 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux' // useSelector is a hook allows to select a slice of the globally managed state and use in component
+import { View, StyleSheet } from 'react-native'
 
 import { CATEGORIES } from '../data/dummy-data'
 import  MealList from '../components/MealList' 
-
+import TextWrapper from '../components/TextWrapper'
 
 const CategoryMealsPage = props => {
 
@@ -25,6 +26,15 @@ const CategoryMealsPage = props => {
     const showMeals = mealsAvailable.filter(
         meal => meal.categoryIDs.indexOf(foodCatId) >= 0
     )
+
+    // A fall back check if there's no meal after filtering
+    if (showMeals.length === 0){
+        return (
+            <View style={styles.filContainerContent}>
+                <TextWrapper> Check filters and Save! No meals found</TextWrapper>
+            </View>
+        )
+    }
 
     return (
         <MealList mealListData={showMeals} navigation={props.navigation}/>
@@ -52,5 +62,12 @@ CategoryMealsPage.navigationOptions = (navigationData) => {
 
 }
 
+const styles = StyleSheet.create({
+    filContainerContent: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
+})
 
 export default CategoryMealsPage;
